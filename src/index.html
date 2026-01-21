@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';" />
+  <title>Cymatics - Sound Wave Art</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden;
+    }
+
+    #start {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+      padding: 10px 16px;
+      background: #111;
+      color: white;
+      border: 1px solid #333;
+      cursor: pointer;
+      font-family: system-ui, -apple-system, sans-serif;
+      transition: background 0.2s;
+    }
+
+    #start:hover {
+      background: #222;
+    }
+  </style>
+</head>
+
+<body>
+  <button id="start">🎧 Capturar áudio do sistema</button>
+  <canvas id="canvas"></canvas>
+  <script src="renderer.js"></script>
+</body>
+
+</html>
