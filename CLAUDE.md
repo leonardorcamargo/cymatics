@@ -4,13 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Cymatics is an Electron desktop application that visualizes system audio in real-time as waveforms on a canvas. The application captures system audio (loopback audio) and renders it as animated sound waves.
+Cymatics is an Electron desktop application that visualizes system audio in real-time with multiple psychedelic animation styles. The application captures system audio (loopback audio) and renders it as animated visualizations on a canvas.
 
 ## Commands
 
-- **Start the application**: `npm start`
-  - Launches the Electron application with `--no-sandbox` flag for Linux compatibility
-- **Install dependencies**: `npm install`
+- **Start**: `npm start` - Launches the app with `--no-sandbox` for Linux
+- **Install**: `npm install`
+- **Build**: `npm run build` (current platform), `npm run build:linux`, `npm run build:win`, `npm run build:mac`, `npm run build:all`
 
 ## Architecture
 
@@ -19,20 +19,35 @@ Cymatics is an Electron desktop application that visualizes system audio in real
 - **Main Process** ([src/main.js](src/main.js))
   - Creates BrowserWindow with dimensions 1200x800
   - Configures `setDisplayMediaRequestHandler` to enable system audio capture via `desktopCapturer`
-  - Uses `nodeIntegration: true` and `contextIsolation: false` for direct access to Electron APIs
+  - Creates native application menu with animation selection (menu "Animações")
+  - Uses IPC to send `change-animation` events to renderer
   - Handles app lifecycle events (window-all-closed, activate)
 
 - **Renderer Process** ([src/renderer.js](src/renderer.js))
   - Captures system audio using `navigator.mediaDevices.getDisplayMedia()` with audio loopback
   - Uses Web Audio API (`AudioContext`, `AnalyserNode`) to process audio data
-  - Visualizes audio waveform on HTML5 Canvas with real-time animation
-  - FFT size: 2048 samples
-  - Sample rate: 44100 Hz
+  - Implements 6 visualization types with real-time animation
+  - FFT size: 2048 samples, Sample rate: 44100 Hz
+  - Listens for `change-animation` IPC events from main process
+
+- **Preload Script** ([src/preload.js](src/preload.js))
+  - Placeholder for future secure API exposure
 
 - **UI** ([src/index.html](src/index.html))
   - Minimal black background with full-screen canvas
-  - Single button to initiate audio capture
-  - Button removes itself after capture starts
+  - Single button to initiate audio capture (removes itself after capture starts)
+  - Portuguese (Brazilian) localization
+
+### Animation Types
+
+6 visualization modes selectable via native menu (Animações):
+
+1. **Psicodélica** (`psychedelic`) - Default. Multiple rotating layers with radial waveforms, HSL color cycling
+2. **Onda Linear** (`waveform`) - Classic horizontal waveform with glow effect
+3. **Circular Simples** (`circular`) - Single circular waveform with amplitude-based radius
+4. **Barras de Frequência** (`bars`) - Frequency bars from bottom with rainbow coloring
+5. **Partículas** (`particles`) - 100 bouncing particles that react to audio amplitude
+6. **Partículas Interativas** (`interactive`) - 150 particles with mouse interaction, connection lines, audio-reactive repulsion/attraction
 
 ### Key Technical Details
 
@@ -44,9 +59,20 @@ Cymatics is an Electron desktop application that visualizes system audio in real
 
 **Visualization:**
 - Uses `getByteTimeDomainData()` for time-domain waveform data
-- Canvas uses fade effect with `rgba(0, 0, 0, 0.2)` for trailing effect
-- Waveform drawn with white stroke at 2px width
+- Canvas uses fade effect with varying alpha (0.05 to 0.2) for trailing effects
+- HSL color cycling with hue increment per frame
+- Shadow/glow effects using `ctx.shadowBlur` and `ctx.shadowColor`
 - Automatically resizes canvas on window resize
+
+**IPC Communication:**
+- Main process sends `change-animation` events via `mainWindow.webContents.send()`
+- Renderer listens with `ipcRenderer.on('change-animation', ...)`
+
+### Build Configuration
+
+Build assets in [build/](build/): `icon.svg`, `cymatics.desktop`, icon generation scripts, AppImage helpers.
+
+Output formats: Linux (AppImage, deb), Windows (NSIS, portable), macOS (DMG, ZIP)
 
 ### Module System
 
@@ -63,5 +89,5 @@ Cymatics is an Electron desktop application that visualizes system audio in real
 ## Platform-Specific Notes
 
 **Linux:**
-- Requires `--no-sandbox` flag due to Chrome sandbox permissions
+- Requires `--no-sandbox` flag (set programmatically in main.js and in AppImage config)
 - System audio capture depends on PulseAudio or PipeWire configuration
