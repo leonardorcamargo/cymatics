@@ -1,6 +1,13 @@
 const { app, BrowserWindow, desktopCapturer, Menu } = require('electron');
 const path = require('path');
 
+// Força --no-sandbox no Linux para captura de áudio funcionar
+// DEVE ser chamado antes de app.whenReady()
+if (process.platform === 'linux') {
+  app.commandLine.appendSwitch('no-sandbox');
+  app.commandLine.appendSwitch('disable-setuid-sandbox');
+}
+
 let mainWindow;
 
 function createWindow() {
@@ -15,7 +22,6 @@ function createWindow() {
     }
   });
 
-  // Configurar handler para captura de áudio do sistema
   mainWindow.webContents.session.setDisplayMediaRequestHandler((request, callback) => {
     desktopCapturer.getSources({ types: ['screen', 'window'] })
       .then((sources) => {
@@ -28,7 +34,6 @@ function createWindow() {
       .catch(() => callback({}));
   });
 
-  // Criar menu de aplicação
   createMenu();
 
   mainWindow.loadFile(path.join(__dirname, 'index.html'));

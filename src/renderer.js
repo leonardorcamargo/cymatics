@@ -16,7 +16,6 @@ let mouseX = canvas.width / 2;
 let mouseY = canvas.height / 2;
 let interactiveParticles = [];
 
-// Event listener para troca de animação via menu
 ipcRenderer.on('change-animation', (event, type) => {
   animationType = type;
   if (animationType === 'particles') {
@@ -26,13 +25,11 @@ ipcRenderer.on('change-animation', (event, type) => {
   }
 });
 
-// Rastreia posição do mouse
 canvas.addEventListener('mousemove', (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
 });
 
-// Inicializa partículas
 function initParticles() {
   particles = [];
   for (let i = 0; i < 100; i++) {
@@ -46,7 +43,6 @@ function initParticles() {
   }
 }
 
-// Inicializa partículas interativas
 function initInteractiveParticles() {
   interactiveParticles = [];
   for (let i = 0; i < 150; i++) {
@@ -122,7 +118,6 @@ function animate() {
   }
 }
 
-// Animação Psicodélica (original)
 function animatePsychedelic() {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -186,7 +181,6 @@ function animatePsychedelic() {
   ctx.restore();
 }
 
-// Animação Onda Linear
 function animateWaveform() {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -214,7 +208,6 @@ function animateWaveform() {
   ctx.shadowBlur = 0;
 }
 
-// Animação Circular Simples
 function animateCircular() {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -248,7 +241,6 @@ function animateCircular() {
   ctx.shadowBlur = 0;
 }
 
-// Animação Barras de Frequência
 function animateBars() {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -267,7 +259,6 @@ function animateBars() {
   }
 }
 
-// Animação Partículas
 function animateParticles() {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -306,7 +297,6 @@ function animateParticles() {
   ctx.shadowBlur = 0;
 }
 
-// Animação Partículas Interativas
 function animateInteractiveParticles() {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
