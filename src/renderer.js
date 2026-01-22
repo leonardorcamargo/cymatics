@@ -1,8 +1,8 @@
+const { ipcRenderer } = require('electron');
+
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const btn = document.getElementById('start');
-const controls = document.getElementById('controls');
-const animationTypeSelect = document.getElementById('animationType');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -16,9 +16,9 @@ let mouseX = canvas.width / 2;
 let mouseY = canvas.height / 2;
 let interactiveParticles = [];
 
-// Event listener para troca de animação
-animationTypeSelect.addEventListener('change', (e) => {
-  animationType = e.target.value;
+// Event listener para troca de animação via menu
+ipcRenderer.on('change-animation', (event, type) => {
+  animationType = type;
   if (animationType === 'particles') {
     initParticles();
   } else if (animationType === 'interactive') {
@@ -85,7 +85,6 @@ btn.onclick = async () => {
     source.connect(analyser);
 
     btn.remove();
-    controls.style.display = 'block';
     initParticles();
     initInteractiveParticles();
     animate();

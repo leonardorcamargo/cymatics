@@ -17,59 +17,30 @@
     #start {
       position: fixed;
       top: 20px;
-      left: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 10;
-      padding: 10px 16px;
+      padding: 15px 30px;
       background: #111;
       color: white;
-      border: 1px solid #333;
+      border: 2px solid #333;
       cursor: pointer;
       font-family: system-ui, -apple-system, sans-serif;
-      transition: background 0.2s;
+      font-size: 16px;
+      transition: all 0.3s;
+      border-radius: 8px;
     }
 
     #start:hover {
       background: #222;
-    }
-
-    #controls {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 10;
-      display: none;
-    }
-
-    #animationType {
-      padding: 10px 16px;
-      background: #111;
-      color: white;
-      border: 1px solid #333;
-      cursor: pointer;
-      font-family: system-ui, -apple-system, sans-serif;
-      font-size: 14px;
-      outline: none;
-    }
-
-    #animationType option {
-      background: #111;
-      color: white;
+      border-color: #555;
+      transform: translateX(-50%) scale(1.05);
     }
   </style>
 </head>
 
 <body>
   <button id="start">🎧 Capturar áudio do sistema</button>
-  <div id="controls">
-    <select id="animationType">
-      <option value="psychedelic">🌀 Psicodélica</option>
-      <option value="waveform">〰️ Onda Linear</option>
-      <option value="circular">⭕ Circular Simples</option>
-      <option value="bars">📊 Barras de Frequência</option>
-      <option value="particles">✨ Partículas</option>
-      <option value="interactive">🖱️ Partículas Interativas</option>
-    </select>
-  </div>
   <canvas id="canvas"></canvas>
   <script src="renderer.js"></script>
 </body>
