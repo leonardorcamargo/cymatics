@@ -6,7 +6,7 @@
 
 Aplicação desktop para visualização de áudio em tempo real com animações psicodélicas e interativas.
 
-![Cymatics Logo](build/icon.svg)
+![Cymatics Logo](public/icon.svg)
 
 ## ✨ Recursos
 
@@ -67,12 +67,7 @@ npm start
 
 ### Gerar Ícones
 
-```bash
-cd build
-./generate-icons.sh
-```
-
-Ou converta manualmente o `build/icon.svg` para:
+Converta manualmente o `build/icon.svg` para:
 - PNG (512x512) para Linux
 - ICO (múltiplos tamanhos) para Windows
 - ICNS para macOS

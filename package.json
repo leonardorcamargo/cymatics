@@ -48,7 +48,7 @@
         }
       ],
       "category": "AudioVideo",
-      "icon": "public/icon.svg",
+      "icon": "public/icon.png",
       "executableName": "cymatics"
     },
     "appImage": {
