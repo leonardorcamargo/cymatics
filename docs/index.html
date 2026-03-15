@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cymatics — Sound Wave Art</title>
+  <meta name="description"
+    content="Visualizador de áudio em tempo real com animações psicodélicas e interativas. Capture o som do sistema e transforme em arte visual." />
+  <meta property="og:title" content="Cymatics — Sound Wave Art" />
+  <meta property="og:description"
+    content="Transforme o áudio do seu sistema em visualizações psicodélicas em tempo real." />
+  <meta property="og:image"
+    content="https://raw.githubusercontent.com/leonardorcamargo/cymatics/main/public/icon.svg" />
+  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+
+<body>
+
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="#">
+        <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <rect width="512" height="512" fill="#000" />
+          <circle cx="256" cy="256" r="220" fill="none" stroke="#00ffff" stroke-width="4" opacity=".8" />
+          <circle cx="256" cy="256" r="160" fill="none" stroke="#ff00ff" stroke-width="3" opacity=".6" />
+          <circle cx="256" cy="256" r="100" fill="none" stroke="#ffff00" stroke-width="2" opacity=".4" />
+          <path d="M156 256 Q181 206,206 256 T256 256 T306 256 T356 256" fill="none" stroke="#fff" stroke-width="4"
+            opacity=".9" />
+          <path d="M156 256 Q181 306,206 256 T256 256 T306 256 T356 256" fill="none" stroke="#fff" stroke-width="4"
+            opacity=".9" />
+          <circle cx="256" cy="256" r="60" fill="none" stroke="#fff" stroke-width="3" opacity=".7" />
+          <circle cx="256" cy="256" r="7" fill="#fff" />
+        </svg>
+        Cymatics
+      </a>
+      <ul class="nav-links">
+        <li><a href="#animations" data-i18n="nav.animations">Animações</a></li>
+        <li><a href="#features"   data-i18n="nav.features">Recursos</a></li>
+        <li><a href="#download"   data-i18n="nav.download">Download</a></li>
+      </ul>
+      <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">EN</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <span data-i18n="hero.badge">100% Gratuito &amp; Sem Cadastro</span>
+          </div>
+          <h1 data-i18n-html="hero.title">Transforme <span class="gradient-text">Som em Arte</span> Visual</h1>
+          <p class="hero-desc" data-i18n="hero.desc">
+            Cymatics transforma qualquer música do seu computador em visualizações psicodélicas ao vivo. Abra, clique e
+            deixe o som tomar forma.
+          </p>
+          <div class="btn-group">
+            <a href="#download" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 3h14v2H5v-2z" />
+              </svg>
+              <span data-i18n="hero.btn.download">Download Grátis</span>
+            </a>
+            <a href="https://github.com/leonardorcamargo/cymatics" target="_blank" rel="noopener"
+              class="btn btn-outline">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 .3C5.37.3 0 5.67 0 12.3c0 5.3 3.44 9.8 8.2 11.38.6.1.83-.26.83-.57 0-.28-.01-1.02-.01-2-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.23-3.22-.12-.3-.53-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.65 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22 0 1.61-.01 2.9-.01 3.3 0 .31.21.68.82.57C20.56 22.1 24 17.6 24 12.3 24 5.67 18.63.3 12 .3z" />
+              </svg>
+              <span data-i18n="hero.btn.github">Ver no GitHub</span>
+            </a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="logo-wrap">
+            <div class="logo-glow"></div>
+            <img src="icon.svg" alt="Cymatics logo" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="container">
+      <div class="stats-grid">
+        <div>
+          <div class="stat-value">6</div>
+          <div class="stat-label" data-i18n="stats.animations.label">Modos de Animação</div>
+        </div>
+        <div>
+          <div class="stat-value">60fps</div>
+          <div class="stat-label" data-i18n="stats.fps.label">Sincronizado com o Som</div>
+        </div>
+        <div>
+          <div class="stat-value">3</div>
+          <div class="stat-label" data-i18n="stats.platforms.label">Sistemas Operacionais</div>
+        </div>
+        <div>
+          <div class="stat-value">0</div>
+          <div class="stat-label" data-i18n="stats.signups.label">Cadastros Necessários</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANIMATIONS -->
+  <section id="animations">
+    <div class="container">
+      <p class="section-label" data-i18n="section.animations.label">Visualizações</p>
+      <h2 class="section-title" data-i18n="section.animations.title">6 Modos de Animação</h2>
+      <p class="section-desc" data-i18n="section.animations.desc">Cada modo cria uma experiência visual diferente — escolha o que mais combina com o seu
+        momento.</p>
+
+      <div class="anim-grid">
+        <div class="anim-card">
+          <i data-lucide="aperture" class="anim-icon"></i>
+          <div class="anim-name" data-i18n="anim.psychedelic.name">Psicodélica</div>
+          <div class="anim-desc" data-i18n="anim.psychedelic.desc">Padrões giratórios que pulsam com o ritmo da música, criando um efeito hipnótico de
+            caleidoscópio cheio de cor.</div>
+          <span class="anim-tag" data-i18n="anim.psychedelic.tag">Padrão</span>
+        </div>
+        <div class="anim-card">
+          <i data-lucide="activity" class="anim-icon"></i>
+          <div class="anim-name" data-i18n="anim.wave.name">Onda Linear</div>
+          <div class="anim-desc" data-i18n="anim.wave.desc">A forma da sua música desenhada em tempo real — cada batida, cada nota, cada silêncio
+            traduzido em linha viva.</div>
+        </div>
+        <div class="anim-card">
+          <i data-lucide="radio" class="anim-icon"></i>
+          <div class="anim-name" data-i18n="anim.circle.name">Circular Simples</div>
+          <div class="anim-desc" data-i18n="anim.circle.desc">Um círculo que respira junto com o som — expande no grave, contrai no silêncio, muda de
+            cor o tempo todo.</div>
+        </div>
+        <div class="anim-card">
+          <i data-lucide="bar-chart-2" class="anim-icon"></i>
+          <div class="anim-name" data-i18n="anim.bars.name">Barras de Frequência</div>
+          <div class="anim-desc" data-i18n="anim.bars.desc">Graves, médios e agudos em barras coloridas que saltam com cada batida. O equalizador
+            que você sempre quis ver.</div>
+        </div>
+        <div class="anim-card">
+          <i data-lucide="sparkles" class="anim-icon"></i>
+          <div class="anim-name" data-i18n="anim.particles.name">Partículas</div>
+          <div class="anim-desc" data-i18n="anim.particles.desc">Pontos de luz que dançam conforme o volume — agitados no forte, delicados no piano.
+          </div>
+        </div>
+        <div class="anim-card">
+          <i data-lucide="mouse-pointer" class="anim-icon"></i>
+          <div class="anim-name" data-i18n="anim.interactive.name">Partículas Interativas</div>
+          <div class="anim-desc" data-i18n="anim.interactive.desc">Mova o mouse e veja as partículas reagirem ao seu toque e à música ao mesmo tempo. Você
+            faz parte da visualização.</div>
+          <span class="anim-tag" data-i18n="anim.interactive.tag">Interativo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="container">
+      <p class="section-label" data-i18n="section.features.label">Recursos</p>
+      <h2 class="section-title" data-i18n="section.features.title">Por Que Você Vai Adorar</h2>
+      <p class="section-desc" data-i18n="section.features.desc">Simples de usar, bonito de ver. Feito para quem quer curtir, não configurar.</p>
+
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon"><i data-lucide="headphones"></i></div>
+          <div>
+            <div class="feature-title" data-i18n="feat.audio.title">Qualquer Som do Computador</div>
+            <div class="feature-desc"  data-i18n="feat.audio.desc">Spotify, YouTube, jogos, filmes — se está tocando no seu PC, o Cymatics visualiza.
+              Sem cabos, sem configuração extra.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i data-lucide="zap"></i></div>
+          <div>
+            <div class="feature-title" data-i18n="feat.perf.title">Fluido e Sem Travamento</div>
+            <div class="feature-desc"  data-i18n="feat.perf.desc">Animações suaves que acompanham o som sem atraso. A experiência é tão fluida
+              quanto a música.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i data-lucide="palette"></i></div>
+          <div>
+            <div class="feature-title" data-i18n="feat.colors.title">Cores que Nunca se Repetem</div>
+            <div class="feature-desc"  data-i18n="feat.colors.desc">O espectro de cores muda continuamente junto com a música. Nunca dois momentos
+              iguais.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i data-lucide="monitor"></i></div>
+          <div>
+            <div class="feature-title" data-i18n="feat.fullscreen.title">Tela Cheia, Sem Distrações</div>
+            <div class="feature-desc"  data-i18n="feat.fullscreen.desc">Pressione F11 e mergulhe na visualização. Interface limpa, sem botões no caminho,
+              só você e o som.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i data-lucide="layers"></i></div>
+          <div>
+            <div class="feature-title" data-i18n="feat.crossplatform.title">Funciona no Seu Sistema</div>
+            <div class="feature-desc"  data-i18n="feat.crossplatform.desc">Disponível para Windows, macOS e Linux. Baixe, instale e abra — sem complicação.
+            </div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i data-lucide="maximize-2"></i></div>
+          <div>
+            <div class="feature-title" data-i18n="feat.responsive.title">Adapta a Qualquer Janela</div>
+            <div class="feature-desc"  data-i18n="feat.responsive.desc">Redimensione à vontade. O Cymatics sempre preenche a janela perfeitamente, seja
+              numa telinha ou num monitor ultrawide.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section id="download">
+    <div class="container">
+      <p class="section-label" data-i18n="section.download.label">Download</p>
+      <h2 class="section-title" data-i18n="section.download.title">Disponível para Todas as Plataformas</h2>
+      <p class="section-desc" style="margin: 0 auto;" data-i18n="section.download.desc">Gratuito, sem cadastro, sem propaganda. Baixe e use agora mesmo.
+      </p>
+
+      <div class="download-cards">
+        <div class="dl-card">
+          <i data-lucide="terminal" class="dl-icon"></i>
+          <div class="dl-os">Linux</div>
+          <div class="dl-formats" data-i18n="dl.linux.formats">Ubuntu · Fedora · Arch e outros</div>
+          <a href="https://github.com/leonardorcamargo/cymatics/releases/latest" target="_blank" rel="noopener"
+            class="dl-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 3h14v2H5v-2z" />
+            </svg>
+            <span data-i18n="dl.btn">Download</span>
+          </a>
+        </div>
+        <div class="dl-card">
+          <i data-lucide="layout-grid" class="dl-icon"></i>
+          <div class="dl-os">Windows</div>
+          <div class="dl-formats" data-i18n="dl.windows.formats">Windows 10 ou superior</div>
+          <a href="https://github.com/leonardorcamargo/cymatics/releases/latest" target="_blank" rel="noopener"
+            class="dl-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 3h14v2H5v-2z" />
+            </svg>
+            <span data-i18n="dl.btn">Download</span>
+          </a>
+        </div>
+        <div class="dl-card">
+          <i data-lucide="apple" class="dl-icon"></i>
+          <div class="dl-os">macOS</div>
+          <div class="dl-formats" data-i18n="dl.mac.formats">macOS 10.14 Mojave ou superior</div>
+          <a href="https://github.com/leonardorcamargo/cymatics/releases/latest" target="_blank" rel="noopener"
+            class="dl-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 3h14v2H5v-2z" />
+            </svg>
+            <span data-i18n="dl.btn">Download</span>
+          </a>
+        </div>
+      </div>
+
+      <p class="source-note" data-i18n-html="dl.source">
+        Ficou curioso sobre como funciona por dentro?
+        <a href="https://github.com/leonardorcamargo/cymatics" target="_blank" rel="noopener">Veja o projeto no
+          GitHub</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <svg width="20" height="20" viewBox="0 0 512 512">
+            <rect width="512" height="512" fill="#000" />
+            <circle cx="256" cy="256" r="200" fill="none" stroke="#00ffff" stroke-width="6" opacity=".7" />
+            <circle cx="256" cy="256" r="130" fill="none" stroke="#ff00ff" stroke-width="4" opacity=".5" />
+            <circle cx="256" cy="256" r="7" fill="#fff" />
+          </svg>
+          <span data-i18n="footer.brand">Cymatics &mdash; Sound Wave Art</span>
+        </div>
+        <ul class="footer-links">
+          <li><a href="https://github.com/leonardorcamargo/cymatics" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/leonardorcamargo/cymatics/releases" target="_blank" rel="noopener" data-i18n="footer.releases">Versões</a>
+          </li>
+          <li><a href="https://github.com/leonardorcamargo/cymatics/issues" target="_blank" rel="noopener" data-i18n="footer.issues">Reportar
+              Problema</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="i18n.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
